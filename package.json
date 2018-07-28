@@ -1,0 +1,23 @@
+{
+  "name": "mekanturk",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "js-cookies": "^1.0.4",
+    "react": "^16.4.1",
+    "react-datetime-picker": "^1.4.1",
+    "react-dom": "^16.4.1",
+    "react-notify-toast": "^0.5.0",
+    "react-responsive-modal": "^3.1.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
+    "react-select": "^1.2.1",
+    "react-table": "^6.8.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
