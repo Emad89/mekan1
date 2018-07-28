@@ -60,10 +60,10 @@ const allBookings = (props) => {
                 }
                 else if((e.target.classList[1] && e.target.classList[1].toString() === "glyphicon-pencil") ||
                     (e.target.classList[3] && e.target.classList[1].toString() === "editBtn")){
+                    props.openEditBookingModal(row.rId,row.firstName,row.lastName,row.nationality,row.bookingStatus,row.whatsapp,row.email,row.arrivingCountry,
+                        row.arrivingAirport,row.flightNumber,row.arrivingDate,row.departureDate,row.serviceType,row.details,
+                        row.comments,row.price,row.paidAmount,row.remainPayment,row.adults,row.babies,row.children,row.phone);
                 }
-                props.openEditBookingModal(row.rId,row.firstName,row.lastName,row.nationality,row.bookingStatus,row.whatsapp,row.email,row.arrivingCountry,
-                    row.arrivingAirport,row.flightNumber,row.arrivingDate,row.departureDate,row.serviceType,row.details,
-                    row.comments,row.price,row.paidAmount,row.remainPayment,row.adults,row.babies,row.children,row.phone);
             }
         }
     }

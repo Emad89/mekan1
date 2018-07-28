@@ -10,29 +10,85 @@ const menu = (props) =>{
     let array = [];
     if(props.notifications){
         for(let i = 0; i < props.notifications.length; i++){
+            let flightNumber = "";
+            let whatsapp = "";
+            let arrivingCountry = "";
+            let arrivingAirport = "";
+            let serviceType = "";
+            let email = "";
+            let details = "";
+            let comments = "";
+            let babies = 0;
+            let adults = 0;
+            let children = 0;
+            let paidAmount = "";
+            let price = "";
+            let phone = "";
             const name = props.notifications[i].firstName + props.notifications[i].lastName;
+            if(props.notifications[i].flightNumber != null && props.notifications[i].flightNumber != undefined){
+                flightNumber = props.notifications[i].flightNumber;
+            }
+            if(props.notifications[i].adults != null && props.notifications[i].adults != undefined){
+                adults = props.notifications[i].adults;
+            }
+            if(props.notifications[i].babies != null && props.notifications[i].babies != undefined){
+                babies = props.notifications[i].babies;
+            }
+            if(props.notifications[i].children != null && props.notifications[i].children != undefined){
+                children = props.notifications[i].children;
+            }
+            if(props.notifications[i].whatsapp != null && props.notifications[i].whatsapp != undefined){
+                whatsapp = props.notifications[i].whatsapp;
+            }
+            if(props.notifications[i].email != null && props.notifications[i].email != undefined){
+                email = props.notifications[i].whatsapp;
+            }
+            if(props.notifications[i].arrivingCountry != null && props.notifications[i].arrivingCountry != undefined){
+                arrivingCountry = props.notifications[i].arrivingCountry;
+            }
+            if(props.notifications[i].arrivingAirport != null && props.notifications[i].arrivingAirport != undefined){
+                arrivingAirport = props.notifications[i].arrivingAirport;
+            }
+            if(props.notifications[i].serviceType != null && props.notifications[i].serviceType != undefined){
+                serviceType = props.notifications[i].serviceType;
+            }
+            if(props.notifications[i].details != null && props.notifications[i].details != undefined){
+                details = props.notifications[i].details;
+            }
+            if(props.notifications[i].comments != null && props.notifications[i].comments != undefined){
+                comments = props.notifications[i].comments;
+            }
+            if(props.notifications[i].price != null && props.notifications[i].price != undefined){
+                price = props.notifications[i].price;
+            }
+            if(props.notifications[i].paidAmount != null && props.notifications[i].paidAmount != undefined){
+                paidAmount = props.notifications[i].paidAmount;
+            }
+            if(props.notifications[i].phone != null && props.notifications[i].phone != undefined){
+                phone = props.notifications[i].phone;
+            }
             array.push(<li data-id={props.notifications[i].id}
                            data-firstname = {props.notifications[i].firstName}
                            data-lastname = {props.notifications[i].lastName}
                            data-nationality = {props.notifications[i].nationality}
                            data-bookingstatus = {props.notifications[i].bookingState}
-                           data-whatsapp = {props.notifications[i].whatsapp}
-                           data-email = {props.notifications[i].email}
-                           data-arrivingcountry = {props.notifications[i].arrivingCountry}
-                           data-arrivingairport = {props.notifications[i].arrivingAirport}
-                           data-flightnumber = {props.notifications[i].flightNumber}
+                           data-whatsapp = {whatsapp}
+                           data-email = {email}
+                           data-arrivingcountry = {arrivingCountry}
+                           data-arrivingairport = {arrivingAirport}
+                           data-flightnumber = {flightNumber}
                            data-arrivingdate = {props.notifications[i].arrivingDate}
                            data-departuredate = {props.notifications[i].departureDate}
-                           data-servicetype = {props.notifications[i].serviceType}
-                           data-details = {props.notifications[i].details}
-                           data-comments = {props.notifications[i].comments}
-                           data-price = {props.notifications[i].price}
-                           data-paidamount = {props.notifications[i].paidAmount}
+                           data-servicetype = {serviceType}
+                           data-details = {details}
+                           data-comments = {comments}
+                           data-price = {price}
+                           data-paidamount = {paidAmount}
                            // data-remainpayment = {props.notifications[i].remainPayment}
-                           data-adults = {props.notifications[i].adults}
-                           data-babies = {props.notifications[i].babies}
-                           data-children = {props.notifications[i].children}
-                           data-phone = {props.notifications[i].phone}
+                           data-adults = {adults}
+                           data-babies = {babies}
+                           data-children = {children}
+                           data-phone = {phone}
                            onClick={props.goToDetailPage} key={props.notifications[i].id}><a>{name}</a></li>);
         }
     }
