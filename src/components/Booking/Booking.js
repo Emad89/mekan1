@@ -92,19 +92,6 @@ const booking = (props) => {
                                     <label for="phone">رقم الهاتف للعميل</label>
                                     <input id="phone" className="form-control" onChange={props.handleChange} value={props.phone} disabled={isItTrue}/>
                                 </div>
-
-                                {/*<div className="form-group">*/}
-                                {/*<label for="remainPayment">المبلغ المتبقي</label>*/}
-                                {/*<input id="remainPayment" className="form-control" disabled={true} value={props.remainPaymentValue}/>*/}
-                                {/*</div>*/}
-                                {/*<div className="form-group">*/}
-                                {/*<label for="arrivingAirport">مطار الوصول للعميل</label>*/}
-                                {/*<input id="arrivingAirport" className="form-control" onChange={props.handleChange}/>*/}
-                                {/*</div>*/}
-                                {/*<div className="form-group">*/}
-                                {/*<label for="babies">عدد الرضع</label>*/}
-                                {/*<input id="babies" className="form-control" onChange={props.handleChange}/>*/}
-                                {/*</div>*/}
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group">
@@ -165,9 +152,11 @@ const booking = (props) => {
                                     <label for="departureDate">تاريخ المغادرة للعميل</label>
                                     <DateTimePicker
                                         id="arrivingDate"
+                                        locale="en"
                                         onChange={props.departureDateHandler}
                                         value={props.departureDate}
                                         disabled={isItTrue}
+                                        format='yyyy-MM-dd'
                                     />
                                 </div>
                             </div>
@@ -176,6 +165,7 @@ const booking = (props) => {
                                     <label for="arrivingDate">تاريخ الوصول للعميل</label>
                                     <DateTimePicker
                                         id="arrivingDate"
+                                        locale="en"
                                         onChange={props.arrivingDateHandler}
                                         value={props.arrivingDate}
                                         disabled={isItTrue}
@@ -184,7 +174,7 @@ const booking = (props) => {
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group">
-                                    <label for="flightNumber">رقم الرحلة العميل</label>
+                                    <label for="flightNumber">رقم رحلة الطيران</label>
                                     <input id="flightNumber" className="form-control" onChange={props.handleChange} value={props.flightNumber} disabled={isItTrue}/>
                                 </div>
                             </div>
@@ -219,19 +209,42 @@ const booking = (props) => {
                             <div className="col-md-4">
                                 <div className="form-group">
                                     <label for="remainPayment">المبلغ المتبقي</label>
-                                    <input id="remainPayment" className="form-control" disabled={true} value={props.remainPayment} disabled={isItTrue}  value={props.remainPayment}/>
+                                    <input id="remainPayment" className="form-control" disabled={true} value={props.remainPayment}/>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group">
                                     <label for="paidAmount">المبلغ المدفوع من قبل العميل</label>
-                                    <input id="paidAmount" className="form-control" onChange={props.handleChange} value={props.paidAmount} disabled={isItTrue}/>
+                                    <input id="paidAmount" className="form-control" type="number"  min="0" onChange={props.handlePaidAmount} value={props.paidAmount} disabled={isItTrue}/>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group">
                                     <label for="price">سعر الخدمة للعميل</label>
-                                    <input id="price" className="form-control" onChange={props.handleChange} value={props.price} disabled={isItTrue}/>
+                                    <input id="price" className="form-control" type="number"  min="0" onChange={props.handlePrice} value={props.price} disabled={isItTrue}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-12">
+                            <div className="col-md-4"></div>
+                            <div className="col-md-4"></div>
+                            <div className="col-md-4">
+                                <div className="form-group">
+                                    <label for="currency">نوع العملة</label>
+                                    <Select
+                                        name="form-field-name"
+                                        value={props.currencySelectedOption}
+                                        onChange={props.currencyChangeHandler}
+                                        disabled={isItTrue}
+                                        options={[
+                                            { value: 0, label: 'الدولار الأمريكي' },
+                                            { value: 1, label: 'الليرة التركي' },
+                                            { value: 2, label: 'الريال السعودي' },
+                                            { value: 3, label: 'الريال القطري' },
+                                            { value: 4, label: 'الدينار الكويتي' },
+                                            { value: 5, label: 'اليورو' }
+                                        ]}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -249,7 +262,7 @@ const booking = (props) => {
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group">
-                                    <label for="comments">ملاحظات للعميل</label>
+                                    <label for="comments">تفاصيل الرحلة للعميل</label>
                                     <textarea id="comments" className="form-control" onChange={props.handleChange} value={props.comments} disabled={isItTrue}/>
                                 </div>
                             </div>

@@ -2,6 +2,7 @@ import React , {Component} from 'react';
 import Employee from '../../components/Employee/Employee';
 import Functions from '../../helper/Functions';
 import MenuPage from '../MenuPage/MenuPage';
+import BaseConfig from "../../BaseConfig";
 
 class EmployeePage extends Component{
 
@@ -20,6 +21,9 @@ class EmployeePage extends Component{
     }
 
     componentDidMount = () => {
+        if(Functions.getCookies("role") !== "ADMIN"){
+            window.location.href = BaseConfig.frontEndUrl + "home";
+        }
         this.getAllEmployees();
     }
 

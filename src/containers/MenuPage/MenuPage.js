@@ -73,6 +73,7 @@ class MenuPage extends Component{
         let booking = new Object();
         booking.id = e.currentTarget.attributes["data-id"].value;
         booking.firstName = e.currentTarget.attributes["data-firstname"].value;
+        booking.refNumber = e.currentTarget.attributes["data-refNumber"].value;
         booking.lastName = e.currentTarget.attributes["data-lastname"].value;
         booking.nationality = e.currentTarget.attributes["data-nationality"].value;
         booking.bookingState = e.currentTarget.attributes["data-bookingstatus"].value;
@@ -88,11 +89,12 @@ class MenuPage extends Component{
         booking.comments = e.currentTarget.attributes["data-comments"].value;
         booking.price = e.currentTarget.attributes["data-price"].value;
         booking.paidAmount = e.currentTarget.attributes["data-paidamount"].value;
-        // booking.remainPayment = e.currentTarget.attributes["data-remainpayment"].value;
+        booking.remainPayment = e.currentTarget.attributes["data-remainpayment"].value;
         booking.adults = e.currentTarget.attributes["data-adults"].value;
         booking.babies = e.currentTarget.attributes["data-babies"].value;
         booking.children = e.currentTarget.attributes["data-children"].value;
         booking.phone = e.currentTarget.attributes["data-phone"].value;
+        booking.currency = e.currentTarget.attributes["data-currency"].value;
         booking.isItUpdate = true;
         Functions.setCookies("booking",(JSON.stringify(booking)));
         window.location.href = BaseConfig.frontEndUrl + "booking";
@@ -100,6 +102,7 @@ class MenuPage extends Component{
 
     logout = () =>{
         Functions.removeCookies("token");
+        Functions.removeCookies("role");
         window.location.href = BaseConfig.frontEndUrl;
     }
 

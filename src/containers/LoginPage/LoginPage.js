@@ -30,11 +30,19 @@ class LoginPage extends Component{
             const Post = Functions.ajaxFunction("auth/admin",headers, JSON.stringify(body),'POST');
             Post.then((data) => data.json())
                 .then((data) => {
+                        if(data.msgCode === 403){
+                            window.location.href =BaseConfig.frontEndUrl;
+                        }
+                        if(data.status === 401){
+                            Functions.alertNotification("الرجاء ادخال معلومات الدخول بالشكل الصحيح","error")
+                            window.location.href =BaseConfig.frontEndUrl;
+                        }
                         if(data.token != null){
-                            // if(data.status === 401){
-                            //     Functions.alertNotification("الرجاء ادخال معلومات الدخول بالشكل الصحيح","error")
-                            // }
+                            if(data.status === 401){
+                                Functions.alertNotification("الرجاء ادخال معلومات الدخول بالشكل الصحيح","error")
+                            }
                             Functions.setCookies("token",data.token);
+                            Functions.setCookies("role",data.role);
                             window.location.href = "/home";
                         }
                     }

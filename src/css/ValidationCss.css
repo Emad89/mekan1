@@ -16,5 +16,5 @@ label{
     text-align: right;
 }
 .react-datetime-picker__button__input__input{
-    min-width: calc(10px + 0.54em);
+    min-width: calc(26px + 0.54em);
 }

@@ -6,7 +6,7 @@ import Functions from '../../helper/Functions';
 import logo from '../../img/logo_sticky.png';
 
 const menu = (props) =>{
-
+    const role = Functions.getCookies("role");
     let array = [];
     if(props.notifications){
         for(let i = 0; i < props.notifications.length; i++){
@@ -24,7 +24,10 @@ const menu = (props) =>{
             let paidAmount = "";
             let price = "";
             let phone = "";
-            const name = props.notifications[i].firstName + props.notifications[i].lastName;
+            let remainPayment = "";
+            let refNumber = "";
+            let currency = "";
+            const name = props.notifications[i].firstName + " - " + props.notifications[i].lastName;
             if(props.notifications[i].flightNumber != null && props.notifications[i].flightNumber != undefined){
                 flightNumber = props.notifications[i].flightNumber;
             }
@@ -67,12 +70,22 @@ const menu = (props) =>{
             if(props.notifications[i].phone != null && props.notifications[i].phone != undefined){
                 phone = props.notifications[i].phone;
             }
+            if(props.notifications[i].remainPayment != null && props.notifications[i].remainPayment != undefined){
+                remainPayment = props.notifications[i].remainPayment;
+            }
+            if(props.notifications[i].refNumber != null && props.notifications[i].refNumber != undefined){
+                refNumber = props.notifications[i].refNumber;
+            }
+            if(props.notifications[i].currency != null && props.notifications[i].currency != undefined){
+                currency = props.notifications[i].currency;
+            }
             array.push(<li data-id={props.notifications[i].id}
                            data-firstname = {props.notifications[i].firstName}
                            data-lastname = {props.notifications[i].lastName}
                            data-nationality = {props.notifications[i].nationality}
                            data-bookingstatus = {props.notifications[i].bookingState}
                            data-whatsapp = {whatsapp}
+                           data-refNumber = {refNumber}
                            data-email = {email}
                            data-arrivingcountry = {arrivingCountry}
                            data-arrivingairport = {arrivingAirport}
@@ -84,11 +97,12 @@ const menu = (props) =>{
                            data-comments = {comments}
                            data-price = {price}
                            data-paidamount = {paidAmount}
-                           // data-remainpayment = {props.notifications[i].remainPayment}
+                           data-remainpayment = {remainPayment}
                            data-adults = {adults}
                            data-babies = {babies}
                            data-children = {children}
                            data-phone = {phone}
+                           data-currency = {currency}
                            onClick={props.goToDetailPage} key={props.notifications[i].id}><a>{name}</a></li>);
         }
     }
@@ -99,10 +113,13 @@ const menu = (props) =>{
             <nav className="navbar navbar-inverse">
                 <div className="container-fluid">
                     <ul className="nav navbar-nav navbar-right">
-                        <li className="active"><a href={baseConfig.frontEndUrl+"employee"}>الموظفيين</a></li>
+                        {role}
+                        {role === "ADMIN" ?
+                            <li className="active"><a href={baseConfig.frontEndUrl+"employee"}>الموظفيين</a></li> : ''
+                        }
                         <li className="dropdown"><a className="dropdown-toggle" data-toggle="dropdown" href="#">الرحلات<span className="caret"></span></a>
                             <ul className="dropdown-menu">
-                                <li><a href={baseConfig.frontEndUrl+"booking"}>تسجيل حجز جديدة</a></li>
+                                <li><a href={baseConfig.frontEndUrl+"booking"}>تسجيل حجز جديد</a></li>
                                 <li><a href={baseConfig.frontEndUrl+"allBookings"}>جميع الحجوزات</a></li>
                             </ul>
                         </li>

@@ -62,6 +62,10 @@ class AllBookingsPage extends Component{
                         Functions.alertNotification("تم حذف معلومات العميل بنجاح", "error");
                         this.onDeleteCloseModal();
                     }
+                    if(data.status === 400){
+                        Functions.alertNotification("ليس لديك الصلاحيات لحذف الحجز", "error");
+                        this.onDeleteCloseModal();
+                    }
                 }
             )
             .catch(
@@ -78,7 +82,7 @@ class AllBookingsPage extends Component{
 
     openEditBookingModal = (id,firstName,lastName,nationality,bookingState,whatsapp,email,arrivingCountry,
         arrivingAirport,flightNumber,arrivingDate,departureDate,serviceType,details,
-        comments,price,paidAmount,remainPayment,adults,babies,children,phone) =>{
+        comments,price,paidAmount,remainPayment,adults,babies,children,phone,refNumber,currency) =>{
         let booking = new Object();
         booking.id = id;
         booking.firstName = firstName;
@@ -103,6 +107,8 @@ class AllBookingsPage extends Component{
         booking.babies = babies;
         booking.children = children;
         booking.phone = phone;
+        booking.refNumber = refNumber;
+        booking.currency = currency;
         booking.isItUpdate = false;
         Functions.setCookies("booking",(JSON.stringify(booking)));
         window.location.href = BaseConfig.frontEndUrl + "booking";

@@ -28,6 +28,8 @@ class BookingPage extends Component{
         children : '',
         babies : '',
         bookingState : '',
+        currency : '',
+        currencySelectedOption : '',
         bookingStateSelectedOption : '',
         serviceType : '',
         serviceTypeSelectedOption : '',
@@ -49,6 +51,7 @@ class BookingPage extends Component{
            const jsonObject = JSON.parse(booking);
            let bookingState = "";
            let bookingType = "";
+           let currency = "";
            if(jsonObject.bookingState === 0 || jsonObject.bookingState === "0"){
                bookingState =  { value: 0, label: 'مؤكد' };
            }
@@ -91,33 +94,34 @@ class BookingPage extends Component{
            if(jsonObject.serviceType === 10 || jsonObject.serviceType === "10"){
                bookingType =  { value: 10, label: 'سهرة عشاء بوسفور' };
            }
-           let aDate = this.state.arrivingDate;
-           if(jsonObject.arrivingDate != null && jsonObject.arrivingDate != undefined){
-               var month = jsonObject.arrivingDate.substring(5,7);
-               var day = jsonObject.arrivingDate.substring(8,10);
-               if(month[0] === "0"){
-                   month = Number(month) - 1;
-               }
-               if(day[0] === "0"){
-                   day = Number(day) - 1;
-               }
-               aDate.setFullYear(jsonObject.arrivingDate.substring(0,4));
-               aDate.setMonth(month);
-               aDate.setDate(day);
+
+           if(jsonObject.currency === 0 || jsonObject.currency === "0"){
+               currency =  { value: 0, label: 'الدولار الأمريكي' };
            }
-           let dDate = this.state.departureDate;
+           if(jsonObject.currency === 1 || jsonObject.currency === "1"){
+               currency =  { value: 1, label: 'الليرة التركي' };
+           }
+           if(jsonObject.currency === 2 || jsonObject.currency === "2"){
+               currency =  { value: 2, label: 'الريال السعودي' };
+           }
+           if(jsonObject.currency === 3 || jsonObject.currency === "3"){
+               currency =  { value: 3, label: 'الريال القطري' };
+           }
+           if(jsonObject.currency === 4 || jsonObject.currency === "4"){
+               currency =  { value: 4, label: 'الدينار الكويتي' };
+           }
+           if(jsonObject.currency === 5 || jsonObject.currency === "5"){
+               currency =  { value: 5, label: 'اليورو' };
+           }
+           let aDate = new Date();
+           if(jsonObject.arrivingDate != null && jsonObject.arrivingDate != undefined){
+               aDate = new Date(jsonObject.arrivingDate.substring(0,10));
+               aDate.setHours(jsonObject.arrivingDate.substring(11,13));
+               aDate.setMinutes(jsonObject.arrivingDate.substring(14,16));
+           }
+           let dDate = new Date();
            if(jsonObject.departureDate != null && jsonObject.departureDate != undefined){
-               var month = jsonObject.departureDate.substring(5,7);
-               var day = jsonObject.departureDate.substring(8,10);
-               if(month[0] === "0"){
-                   month = Number(month) - 1;
-               }
-               if(day[0] === "0"){
-                   day = Number(day) - 1;
-               }
-               dDate.setFullYear(jsonObject.departureDate.substring(0,4));
-               dDate.setMonth(month);
-               dDate.setDate(day);
+               dDate = new Date(jsonObject.departureDate.substring(0,10));
            }
            this.state.isItUpdate = jsonObject.isItUpdate;
            this.state.arrivingDate = aDate;
@@ -125,10 +129,10 @@ class BookingPage extends Component{
            this.setState({isItNewBooking : false,firstName : jsonObject.firstName , lastName : jsonObject.lastName , nationality : jsonObject.nationality,
                bookingStateSelectedOption : bookingState , id :jsonObject.id , bookingState:jsonObject.bookingStatus, whatsapp:jsonObject.whatsapp,
                email:jsonObject.email, arrivingCountry:jsonObject.arrivingCountry, arrivingAirport:jsonObject.arrivingAirport,
-               flightNumber:jsonObject.flightNumber, phone:jsonObject.phone,
+               flightNumber:jsonObject.flightNumber, phone:jsonObject.phone, departureDate : dDate, arrivingDate : aDate,
                serviceType : jsonObject.serviceType,details : jsonObject.details, comments : jsonObject.comments,price : jsonObject.price,
                paidAmount : jsonObject.paidAmount,remainPayment : jsonObject.remainPayment,adults : jsonObject.adults,babies : jsonObject.babies,
-               children : jsonObject.children,serviceTypeSelectedOption:bookingType});
+               children : jsonObject.children,serviceTypeSelectedOption:bookingType,currencySelectedOption : currency,currency:jsonObject.currency});
        }
     }
 
@@ -138,6 +142,23 @@ class BookingPage extends Component{
         data.value = e.target.value;
         this.setState({[data.id]: data.value});
         this.checkRequiredFields(data);
+    }
+
+    handlePrice = (event) => {
+       this.setState({price : event.currentTarget.value},function () {
+           if(this.state.price === "" || this.state.price === 0 || this.state.price === "0"){
+               this.setState({remainPayment : ""});
+           }
+       });
+    }
+
+    handlePaidAmount = (event) => {
+        this.setState({paidAmount : event.currentTarget.value},function () {
+            if(this.state.price !== "" && this.state.price !== 0 && this.state.price !== "0"){
+                const remainAmount = Number(this.state.price) - Number(this.state.paidAmount);
+                this.setState({remainPayment : remainAmount});
+            }
+        });
     }
 
     arrivingDateHandler = (arrivingDate) =>{
@@ -166,8 +187,40 @@ class BookingPage extends Component{
     }
 
     addBooking = () => {
-        var aDate =  [this.state.arrivingDate.getFullYear(), ("0" + (this.state.arrivingDate.getMonth() + 1)).slice(-2),("0" + (this.state.arrivingDate.getDate())).slice(-2)].join('-');
-        var sDate =  [this.state.departureDate.getFullYear(), ("0" + (this.state.departureDate.getMonth() + 1)).slice(-2),("0" + (this.state.departureDate.getDate())).slice(-2)].join('-');
+        let aMonth = this.state.arrivingDate.getMonth();
+        let aDay = this.state.arrivingDate.getDate();
+        let aHours = this.state.arrivingDate.getHours();
+        let aMinutes = this.state.arrivingDate.getMinutes();
+        if(aMonth.toString().length === 1){
+            aMonth = ("0" + (aMonth + 1)).slice(-2);
+        }
+        if(aDay.toString().length === 1){
+            aDay = ("0" + (aDay)).slice(-2);
+        }
+        if(aHours.toString().length === 1){
+            aHours = ("0" + (aHours)).slice(-2);
+        }
+        if(aMinutes.toString().length === 1){
+            aMinutes = ("0" + (aMinutes)).slice(-2);
+        }
+        let dMonth = this.state.departureDate.getMonth();
+        let dDay = this.state.departureDate.getDate();
+        let dHours = this.state.departureDate.getHours();
+        let dMinutes = this.state.departureDate.getMinutes();
+        if(dMonth.toString().length === 1){
+            dMonth = ("0" + (dMonth + 1)).slice(-2);
+        }
+        if(dDay.toString().length === 1){
+            dDay = ("0" + (dDay)).slice(-2);
+        }
+        if(dHours.toString().length === 1){
+            dHours = ("0" + (dHours)).slice(-2);
+        }
+        if(dMinutes.toString().length === 1){
+            dMinutes = ("0" + (dMinutes)).slice(-2);
+        }
+        var aDate =  [this.state.arrivingDate.getFullYear(), aMonth,aDay, aHours, aMinutes].join('-');
+        var sDate =  [this.state.departureDate.getFullYear(), dMonth,dDay, dHours, dMinutes].join('-');
         const body = {
             "firstName" : this.state.firstName,
             "lastName" : this.state.lastName,
@@ -177,9 +230,11 @@ class BookingPage extends Component{
             "arrivingCountry" : this.state.arrivingCountry,
             "arrivingDate" : aDate,
             "comments" : this.state.comments,
+            "currency" : this.state.currency,
             "departureDate" : sDate,
             "details" : this.state.details,
             "paidAmount" : this.state.paidAmount,
+            "remainPayment" : this.state.remainPayment,
             "phone" : this.state.phone,
             "email" : this.state.email,
             "price" : this.state.price,
@@ -271,7 +326,15 @@ class BookingPage extends Component{
     }
 
     serviceTypeChangeHandler = (serviceTypeSelectedOption) => {
-        this.setState({ serviceTypeSelectedOption , serviceType : serviceTypeSelectedOption.value },function () {})
+        if(serviceTypeSelectedOption !== undefined && serviceTypeSelectedOption !== null){
+            this.setState({ serviceTypeSelectedOption , serviceType : serviceTypeSelectedOption.value },function () {})
+        }
+    }
+
+    currencyChangeHandler = (currencySelectedOption) => {
+        if(currencySelectedOption !== undefined && currencySelectedOption !== null){
+            this.setState({ currencySelectedOption , currency : currencySelectedOption.value },function () {})
+        }
     }
 
     render(){
@@ -280,12 +343,17 @@ class BookingPage extends Component{
                 <MenuPage/>
                 <Booking
                     handleChange = {this.handleChange}
+                    handlePrice = {this.handlePrice}
+                    handlePaidAmount = {this.handlePaidAmount}
 
                     bookingStateChangeHandler = {this.bookingStateChangeHandler}
                     bookingStateSelectedOption = {this.state.bookingStateSelectedOption}
 
                     serviceTypeSelectedOption = {this.state.serviceTypeSelectedOption}
                     serviceTypeChangeHandler = {this.serviceTypeChangeHandler}
+
+                    currencySelectedOption = {this.state.currencySelectedOption}
+                    currencyChangeHandler = {this.currencyChangeHandler}
 
                     addBookingFormValid = {this.state.addBookingFormValid}
 
@@ -312,6 +380,7 @@ class BookingPage extends Component{
                     arrivingAirport = {this.state.arrivingAirport}
                     flightNumber = {this.state.flightNumber}
                     serviceType = {this.state.serviceType}
+                    currency = {this.state.currency}
                     details = {this.state.details}
                     comments = {this.state.comments}
                     price = {this.state.price}

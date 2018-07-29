@@ -12,10 +12,10 @@ const allBookings = (props) => {
         for(let i = 0; i < props.bookings.length; i++){
             let bookingState;
             if(props.bookings[i].bookingState == 0){
-                bookingState = <div><p style={{display:"inline-block",width:"75%"}}>مؤكد</p><p style={{width:"15px",height:"15px",backgroundColor:"green",display:"inline-block",marginLeft:"11px",borderRadius:"50%"}}></p></div>;
+                bookingState = <div><p style={{display:"inline-block",width:"75%"}}>مؤكد</p><p style={{width:"15px",height:"15px",backgroundColor:"yellow",display:"inline-block",marginLeft:"11px",borderRadius:"50%"}}></p></div>;
             }
             if(props.bookings[i].bookingState == 1){
-                bookingState = <div><p style={{display:"inline-block",width:"75%"}}>غير مؤكد</p><p style={{width:"15px",height:"15px",backgroundColor:"orange",display:"inline-block",marginLeft:"11px",borderRadius:"50%"}}></p></div>;
+                bookingState = <div><p style={{display:"inline-block",width:"75%"}}>غير مؤكد</p><p style={{width:"15px",height:"15px",backgroundColor:"#2196F3",display:"inline-block",marginLeft:"11px",borderRadius:"50%"}}></p></div>;
             }
             if(props.bookings[i].bookingState == 2){
                 bookingState = <div><p style={{display:"inline-block",width:"75%"}}>ملغي</p><p style={{width:"15px",height:"15px",backgroundColor:"red",display:"inline-block",marginLeft:"11px",borderRadius:"50%"}}></p></div>;
@@ -27,6 +27,7 @@ const allBookings = (props) => {
                     nationality : props.bookings[i].nationality,
                     phone : props.bookings[i].phone,
                     bookingState : bookingState,
+                    refNumber : props.bookings[i].refNumber,
                     rId : props.bookings[i].id,
                     bookingStatus : props.bookings[i].bookingState,
                     whatsapp : props.bookings[i].whatsapp,
@@ -44,7 +45,8 @@ const allBookings = (props) => {
                     remainPayment : props.bookings[i].remainPayment,
                     adults : props.bookings[i].adults,
                     babies : props.bookings[i].babies,
-                    children : props.bookings[i].children
+                    children : props.bookings[i].children,
+                    currency : props.bookings[i].currency,
                 }
             );
         }
@@ -62,7 +64,7 @@ const allBookings = (props) => {
                     (e.target.classList[3] && e.target.classList[1].toString() === "editBtn")){
                     props.openEditBookingModal(row.rId,row.firstName,row.lastName,row.nationality,row.bookingStatus,row.whatsapp,row.email,row.arrivingCountry,
                         row.arrivingAirport,row.flightNumber,row.arrivingDate,row.departureDate,row.serviceType,row.details,
-                        row.comments,row.price,row.paidAmount,row.remainPayment,row.adults,row.babies,row.children,row.phone);
+                        row.comments,row.price,row.paidAmount,row.remainPayment,row.adults,row.babies,row.children,row.phone,row.refNumber,row.currency);
                 }
             }
         }
@@ -105,6 +107,14 @@ const allBookings = (props) => {
                         cursor: "pointer",
                         textAlign : "center"
                     }
+                }
+            ]
+        },
+        {
+            columns: [
+                {
+                    Header: "رقم المرجعي",
+                    accessor: "refNumber"
                 }
             ]
         },
