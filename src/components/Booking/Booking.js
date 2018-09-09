@@ -1,14 +1,49 @@
 import React from 'react';
 import Select from 'react-select';
 import Functions from "../../helper/Functions";
-import DateTimePicker from 'react-datetime-picker';
+// import DateTimePicker from 'react-datetime-picker';
 import classes from '../../css/ValidationCss.css';
+import Toggle from 'react-toggle'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const booking = (props) => {
     const inputNotValid = classes.inputNotValid;
     let isItTrue = false;
     if(props.isItUpdate === true){
         isItTrue = true;
+    }
+
+    let programDetails = [];
+    if(props.numberOfDays > 0){
+        if(props.showProgramDetails == true){
+            for(var i=0; i < props.numberOfDays; i++){
+                let x = props.programInfo[i].programDetails;
+                let label = "البرنامج لليوم " + Number(i+1);
+                programDetails.push(
+                    <div className="col-md-12">
+                        <div className="form-group">
+                            <label for="details">{label}</label>
+                            <textarea id="programDetails" className="form-control"
+                                      onChange={props.handleDetails(i)}
+                                      value={x}
+                                      disabled={isItTrue}/>
+                        </div>
+                    </div>
+                );
+            }
+        }
+    }
+
+    let services = [];
+    if(props.services){
+        for(var i=0; i<props.services.length; i++){
+            let d = new Object();
+            d.value = props.services[i].id;
+            d.label = props.services[i].serviceType;
+            d.type = props.services[i].type;
+            services.push(d);
+        }
     }
 
     return (
@@ -19,6 +54,9 @@ const booking = (props) => {
                         <div>
                             <h2 style={{display:"inline-block",position:"absolute",right:"30px"}}>تفاصيل الحجز</h2>
                             <button type="button" className="btn btn-info" data-toggle="collapse" data-target="#allBookingInfo">ادخال كافة التفاصيل</button>
+                            {props.isItNewBooking === true? "" :
+                                <button style={{marginLeft : "10px",backgroundColor : "#b7d75e"}} type="button" className="btn btn-info" >طباعة معلومات الحجز<i class="fa fa-download" aria-hidden="true"></i></button>
+                            }
                         </div>
                     </div>
                     <div className="col-md-12">
@@ -131,45 +169,83 @@ const booking = (props) => {
                                         value={props.serviceTypeSelectedOption}
                                         disabled={isItTrue}
                                         onChange={props.serviceTypeChangeHandler}
-                                        options={[
-                                            { value: 0, label: 'حجز فندق' },
-                                            { value: 1, label: 'شقة فندقية' },
-                                            { value: 2, label: 'كوخ خشبي' },
-                                            { value: 3, label: 'سيارة صغيرة مع سائق' },
-                                            { value: 4, label: 'سيارة اقتصادية عائلية مع سائق' },
-                                            { value: 5, label: 'سيارة فاخرة عائلية مع سائق' },
-                                            { value: 6, label: 'سيارة اقتصادية عائلية مع سائق' },
-                                            { value: 7, label: 'باص 13 راكب' },
-                                            { value: 8, label: 'برنامج سياحي كامل' },
-                                            { value: 9, label: 'يخت خاص' },
-                                            { value: 10, label: 'سهرة عشاء بوسفور' }
-                                        ]}
+                                        options={services}
                                     />
+                                    {/*<Multiselect*/}
+                                        {/*multi*/}
+                                        {/*onChange={props.handleServicesType}*/}
+                                        {/*options={[*/}
+                                            {/*{ value: 0, label: 'حجز فندق' },*/}
+                                            {/*{ value: 1, label: 'شقة فندقية' },*/}
+                                            {/*{ value: 2, label: 'كوخ خشبي' },*/}
+                                            {/*{ value: 3, label: 'سيارة صغيرة مع سائق' },*/}
+                                            {/*{ value: 4, label: 'سيارة اقتصادية عائلية مع سائق' },*/}
+                                            {/*{ value: 5, label: 'سيارة فاخرة عائلية مع سائق' },*/}
+                                            {/*{ value: 6, label: 'سيارة اقتصادية عائلية مع سائق' },*/}
+                                            {/*{ value: 7, label: 'باص 13 راكب' },*/}
+                                            {/*{ value: 8, label: 'برنامج سياحي كامل' },*/}
+                                            {/*{ value: 9, label: 'يخت خاص' },*/}
+                                            {/*{ value: 10, label: 'سهرة عشاء بوسفور' }*/}
+                                        {/*]}*/}
+                                        {/*placeholder= "enter services types"*/}
+                                        {/*removeSelected={props.removeSelectedService}*/}
+                                        {/*value={props.servicesType}*/}
+                                    {/*/>*/}
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group">
                                     <label for="departureDate">تاريخ المغادرة للعميل</label>
-                                    <DateTimePicker
-                                        id="arrivingDate"
-                                        locale="en"
+                                    <DatePicker
+                                        selected={props.departureDate}
                                         onChange={props.departureDateHandler}
-                                        value={props.departureDate}
+                                        showTimeSelect
+                                        timeFormat="HH:mm"
+                                        timeIntervals={15}
+                                        dateFormat="LLL"
                                         disabled={isItTrue}
-                                        format='yyyy-MM-dd'
+                                        timeCaption="time"
                                     />
+                                    {/*<DateTimePicker*/}
+                                        {/*id="departureDate"*/}
+                                        {/*locale="en"*/}
+                                        {/*onChange={props.departureDateHandler}*/}
+                                        {/*value={props.departureDate}*/}
+                                        {/*disabled={isItTrue}*/}
+                                    {/*/>*/}
+                                    {/*<div className="input">*/}
+                                        {/*<input type="text" value={props.departureDate.format('llll')} readOnly />*/}
+                                    {/*</div>*/}
+                                    {/*<InputMoment*/}
+                                        {/*moment={props.departureDate}*/}
+                                        {/*onChange={props.departureDateHandler}*/}
+                                        {/*minStep={1}*/}
+                                        {/*onSave={props.departureDateHandler}*/}
+                                    {/*/>*/}
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group">
                                     <label for="arrivingDate">تاريخ الوصول للعميل</label>
-                                    <DateTimePicker
+                                    <DatePicker
                                         id="arrivingDate"
                                         locale="en"
+                                        selected={props.arrivingDate}
                                         onChange={props.arrivingDateHandler}
-                                        value={props.arrivingDate}
+                                        showTimeSelect
+                                        timeFormat="HH:mm"
+                                        timeIntervals={15}
+                                        dateFormat="LLL"
                                         disabled={isItTrue}
+                                        timeCaption="time"
                                     />
+                                    {/*<DateTimePicker*/}
+                                        {/*id="arrivingDate"*/}
+                                        {/*locale="en"*/}
+                                        {/*onChange={props.arrivingDateHandler}*/}
+                                        {/*value={props.arrivingDate}*/}
+                                        {/*disabled={isItTrue}*/}
+                                    {/*/>*/}
                                 </div>
                             </div>
                             <div className="col-md-4">
@@ -178,7 +254,24 @@ const booking = (props) => {
                                     <input id="flightNumber" className="form-control" onChange={props.handleChange} value={props.flightNumber} disabled={isItTrue}/>
                                 </div>
                             </div>
+                            <div className="col-md-12" style={{textAlign:"right"}}>
+                                <div className="form-group">
+                                    <label>  ادخال تفاصيل البرنامج</label>
+                                    <Toggle
+                                        defaultChecked={props.showProgramDetails}
+                                        value={props.showProgramDetails}
+                                        onChange={props.handleProgramDetails}
+                                    />
+                                    </div>
+                            </div>
+                            {programDetails}
                         </div>
+                        <div className="col-md-12">
+                            <div style={{padding:"10px",marginTop:"15px"}}>
+                                <h4 style={{textAlign:"center",color:"#ffa775",marginBottom:"15px"}}>معلومات خدمات العميل<i style={{marginLeft:"10px"}} className="fa fa-folder-open"></i></h4>
+                            </div>
+                        </div>
+                        {props.serviceInfo}
                         <div className="col-md-12">
                             <div style={{padding:"10px",marginTop:"15px"}}>
                                 <h4 style={{textAlign:"center",color:"#ffa775",marginBottom:"15px"}}>معلومات عائلة العميل<i style={{marginLeft:"10px"}} className="fas fa-users"></i></h4>

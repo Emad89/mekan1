@@ -6,6 +6,7 @@ import EmployeePage from "./containers/EmployeePage/EmployeePage";
 import BookingPage from "./containers/BookingPage/BookingPage";
 import AllBookingsPage from "./containers/AllBookingsPage/AllBookingsPage";
 import BookingDetailsPage from "./containers/BookingDetailsPage/BookingDetailsPage";
+import ServicePage from "./containers/ServicePage/ServicePage";
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
                 <Route path="/booking" component={BookingPage}/>
                 <Route path="/allBookings" component={AllBookingsPage}/>
                 <Route path="/bookingDetails" component={BookingDetailsPage}/>
+                <Route path="/services" component={ServicePage}/>
             </Switch>
         </div>
     );

@@ -61,7 +61,7 @@ validateFunction : function (array) {
                     isItValid : false;
                 }
             }
-            if(array[i].id[0] === "firstName" || array[i].id[0] === "lastName"  || array[i].id[0] === "nationality"){
+            if(array[i].id[0] === "firstName" || array[i].id[0] === "lastName"  || array[i].id[0] === "nationality" || array[i].id[0] === "serviceName"){
                 if (array[i].value.toString().length > 1) {
                     isItValid = true;
                 }

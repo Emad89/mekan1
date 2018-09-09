@@ -27,6 +27,8 @@ const menu = (props) =>{
             let remainPayment = "";
             let refNumber = "";
             let currency = "";
+            let programDetails = "";
+            let servicesDetails = "";
             const name = props.notifications[i].firstName + " - " + props.notifications[i].lastName;
             if(props.notifications[i].flightNumber != null && props.notifications[i].flightNumber != undefined){
                 flightNumber = props.notifications[i].flightNumber;
@@ -79,6 +81,12 @@ const menu = (props) =>{
             if(props.notifications[i].currency != null && props.notifications[i].currency != undefined){
                 currency = props.notifications[i].currency;
             }
+            if(props.notifications[i].programDetails != null && props.notifications[i].programDetails != undefined){
+                programDetails = JSON.stringify(props.notifications[i].programDetails);
+            }
+            if(props.notifications[i].servicesDetails != null && props.notifications[i].servicesDetails != undefined){
+                servicesDetails = JSON.stringify(props.notifications[i].servicesDetails);
+            }
             array.push(<li data-id={props.notifications[i].id}
                            data-firstname = {props.notifications[i].firstName}
                            data-lastname = {props.notifications[i].lastName}
@@ -103,6 +111,8 @@ const menu = (props) =>{
                            data-children = {children}
                            data-phone = {phone}
                            data-currency = {currency}
+                           data-programDetails = {programDetails}
+                           data-servicesDetails = {servicesDetails}
                            onClick={props.goToDetailPage} key={props.notifications[i].id}><a>{name}</a></li>);
         }
     }
@@ -114,6 +124,9 @@ const menu = (props) =>{
                 <div className="container-fluid">
                     <ul className="nav navbar-nav navbar-right">
                         {role}
+                        {role === "ADMIN" ?
+                            <li className="active"><a href={baseConfig.frontEndUrl+"services"}>الخدمات</a></li> : ''
+                        }
                         {role === "ADMIN" ?
                             <li className="active"><a href={baseConfig.frontEndUrl+"employee"}>الموظفيين</a></li> : ''
                         }

@@ -96,6 +96,8 @@ class MenuPage extends Component{
         booking.phone = e.currentTarget.attributes["data-phone"].value;
         booking.currency = e.currentTarget.attributes["data-currency"].value;
         booking.isItUpdate = true;
+        booking.programDetails = JSON.parse(e.currentTarget.attributes["data-programDetails"].value);
+        booking.servicesDetails = JSON.parse(e.currentTarget.attributes["data-servicesDetails"].value);
         Functions.setCookies("booking",(JSON.stringify(booking)));
         window.location.href = BaseConfig.frontEndUrl + "booking";
     }

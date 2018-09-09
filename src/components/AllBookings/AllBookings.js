@@ -47,6 +47,8 @@ const allBookings = (props) => {
                     babies : props.bookings[i].babies,
                     children : props.bookings[i].children,
                     currency : props.bookings[i].currency,
+                    programDetails : props.bookings[i].programDetails,
+                    servicesDetails : props.bookings[i].servicesDetails
                 }
             );
         }
@@ -64,7 +66,8 @@ const allBookings = (props) => {
                     (e.target.classList[3] && e.target.classList[1].toString() === "editBtn")){
                     props.openEditBookingModal(row.rId,row.firstName,row.lastName,row.nationality,row.bookingStatus,row.whatsapp,row.email,row.arrivingCountry,
                         row.arrivingAirport,row.flightNumber,row.arrivingDate,row.departureDate,row.serviceType,row.details,
-                        row.comments,row.price,row.paidAmount,row.remainPayment,row.adults,row.babies,row.children,row.phone,row.refNumber,row.currency);
+                        row.comments,row.price,row.paidAmount,row.remainPayment,row.adults,row.babies,row.children,row.phone,row.refNumber,row.currency,row.programDetails,
+                        row.servicesDetails);
                 }
             }
         }

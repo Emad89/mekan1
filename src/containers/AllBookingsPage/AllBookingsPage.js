@@ -6,6 +6,7 @@ import BookingJson from '../../helper/bookingDetail.json';
 import MenuPage from '../MenuPage/MenuPage';
 import BaseConfig from "../../BaseConfig";
 
+
 class AllBookingsPage extends Component{
 
     state = {
@@ -82,7 +83,7 @@ class AllBookingsPage extends Component{
 
     openEditBookingModal = (id,firstName,lastName,nationality,bookingState,whatsapp,email,arrivingCountry,
         arrivingAirport,flightNumber,arrivingDate,departureDate,serviceType,details,
-        comments,price,paidAmount,remainPayment,adults,babies,children,phone,refNumber,currency) =>{
+        comments,price,paidAmount,remainPayment,adults,babies,children,phone,refNumber,currency,programDetails,servicesDetails) =>{
         let booking = new Object();
         booking.id = id;
         booking.firstName = firstName;
@@ -110,6 +111,8 @@ class AllBookingsPage extends Component{
         booking.refNumber = refNumber;
         booking.currency = currency;
         booking.isItUpdate = false;
+        booking.programDetails = programDetails;
+        booking.servicesDetails = servicesDetails;
         Functions.setCookies("booking",(JSON.stringify(booking)));
         window.location.href = BaseConfig.frontEndUrl + "booking";
     }
