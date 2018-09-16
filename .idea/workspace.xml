@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e9f00565-79c2-494b-b361-b66ac7e56ee0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/Booking/Booking.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Booking/Booking.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Menu/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Menu/Menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/BookingPage/BookingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/BookingPage/BookingPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/HomePage/HomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/HomePage/HomePage.js" afterDir="false" />
-    </list>
+    <list default="true" id="e9f00565-79c2-494b-b361-b66ac7e56ee0" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -64,11 +59,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseConfig.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BaseConfig.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BaseConfig.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="44">
               <caret line="2" column="78" selection-start-line="2" selection-start-column="78" selection-end-line="2" selection-end-column="78" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HomePage.js" pinned="false" current-in-tab="true">
+        <entry file="file://$USER_HOME$/AppData/Local/Temp/wzf07c/src/containers/HomePage/HomePage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -170,12 +176,12 @@
       <updated>1537022294127</updated>
       <workItem from="1537022302866" duration="1319000" />
       <workItem from="1537025295006" duration="11000" />
-      <workItem from="1537130804268" duration="73000" />
+      <workItem from="1537130804268" duration="673000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1403000" />
+    <option name="totallyTimeSpent" value="2003000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -323,6 +329,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="2" column="78" selection-start-line="2" selection-start-column="78" selection-end-line="2" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/wzf07c/src/containers/HomePage/HomePage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
