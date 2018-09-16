@@ -136,7 +136,11 @@ const menu = (props) =>{
                                 <li><a href={baseConfig.frontEndUrl+"allBookings"}>جميع الحجوزات</a></li>
                             </ul>
                         </li>
-                        <li style={{marginTop:"10px",backgroundColor:"white"}}><img src={logo} alt="IMG"/></li>
+                        <li style={{marginTop:"10px",backgroundColor:"white"}}>
+                            <a style={{padding:"0px"}} href={baseConfig.frontEndUrl+"home"}>
+                                <img src={logo} alt="IMG"/>
+                            </a>
+                        </li>
                     </ul>
                     <ul className="nav navbar-nav">
                         <li><a href="#" onClick={props.logout}><i className="fas fa-sign-out-alt" aria-hidden="true" style={{paddingRight:"5px"}}></i>تسجيل الخروج</a></li>

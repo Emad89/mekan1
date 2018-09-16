@@ -6,6 +6,7 @@ import classes from '../../css/ValidationCss.css';
 import Toggle from 'react-toggle'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Loader from 'react-loader-spinner'
 
 const booking = (props) => {
     const inputNotValid = classes.inputNotValid;
@@ -48,6 +49,27 @@ const booking = (props) => {
 
     return (
         <div>
+            {props.showLoading === true?
+                <div style={{
+                    position: "absolute",
+                    height: "100%",
+                    width: "100%",
+                    top: "0",
+                    backgroundColor: "rgba(100, 100, 100, 0.71)",
+                    zIndex : "23421",
+                    textAlign: "center",
+                    paddingTop: "20%"
+                }}>
+                    <h2 style={{color:"#FFF"}}>يتم تجهيز الملف الأن</h2>
+                    <Loader
+                        type="Plane"
+                        color="#00BFFF"
+                        height="100"
+                        width="100"
+                    />
+                </div>
+                :
+           ""}
             <div className="row">
                 <div className="col-md-12">
                     <div className="col-md-12" style={{marginBottom:"20px",padding:"20px",backgroundColor:"#f3f3b5ad"}}>
@@ -55,7 +77,7 @@ const booking = (props) => {
                             <h2 style={{display:"inline-block",position:"absolute",right:"30px"}}>تفاصيل الحجز</h2>
                             <button type="button" className="btn btn-info" data-toggle="collapse" data-target="#allBookingInfo">ادخال كافة التفاصيل</button>
                             {props.isItNewBooking === true? "" :
-                                <button style={{marginLeft : "10px",backgroundColor : "#b7d75e"}} type="button" className="btn btn-info" >طباعة معلومات الحجز<i class="fa fa-download" aria-hidden="true"></i></button>
+                                <button style={{marginLeft : "10px",backgroundColor : "#b7d75e"}} type="button" className="btn btn-info" onClick={props.printPDF}>طباعة معلومات الحجز<i class="fa fa-download" aria-hidden="true"></i></button>
                             }
                         </div>
                     </div>

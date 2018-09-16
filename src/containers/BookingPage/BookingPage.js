@@ -8,6 +8,7 @@ import Select from 'react-select';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 
 
 class BookingPage extends Component{
@@ -61,6 +62,7 @@ class BookingPage extends Component{
         showProgramDetails : false,
         programInfo : [{programDetails : '', programIndex : ''}],
         services : '',
+        showLoading : false,
 
     }
 
@@ -516,6 +518,34 @@ class BookingPage extends Component{
         });
     }
 
+    printPDF = () => {
+        this.setState({showLoading : true});
+        const headers = {
+            'Content-Type' : 'application/json',
+            'X-AUTH-TOKEN' : Functions.getCookies("token")
+        }
+        const url = BaseConfig.baseUrl+"booking/pdf/" + this.state.id;
+        axios(url, {
+            method: 'GET',
+            headers:headers,
+            responseType: 'blob' //Force to receive data in a Blob Format
+        })
+            .then(response => {
+//Create a Blob from the PDF Stream
+                const file = new Blob(
+                    [response.data],
+                    {type: 'application/pdf'});
+//Build a URL from the file
+                const fileURL = URL.createObjectURL(file);
+//Open the URL on new Window
+                this.setState({showLoading : false});
+                window.open(fileURL);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
     // getAllservices = (jsonObject) => {
     //     const headers = {
     //         'Content-Type' : 'application/json',
@@ -711,6 +741,7 @@ class BookingPage extends Component{
                     firstNameValid = {this.state.firstNameValid}
                     nationalityValid = {this.state.nationalityValid}
                     bookingStateValid = {this.state.bookingStateValid}
+                    showLoading = {this.state.showLoading}
 
                     btnDisable = {this.state.btnDisable}
 
@@ -733,6 +764,7 @@ class BookingPage extends Component{
                     arrivingAirport = {this.state.arrivingAirport}
                     flightNumber = {this.state.flightNumber}
                     serviceType = {this.state.serviceType}
+                    printPDF = {this.printPDF}
                     currency = {this.state.currency}
                     isItNewBooking = {this.state.isItNewBooking}
                     details = {this.state.details}
