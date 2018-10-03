@@ -53,7 +53,7 @@ class BookingPage extends Component{
         serviceInfo: [
             {serviceStartDate: "", serviceEndDate: "",selectedServiceOption:'', city: '',selectedBreakfast:'', comments: '',
             start: '', rooms: '' , breakfast:'' , car:'' , selectedService : '', selectedServiceCode:'',showCarType : false,
-            showHotel : false,sDate : new moment(),eDate: new moment(),service_type_id : '',
+            showHotel : false,sDate : new moment(),eDate: new moment(),service_type_id : '', hotelName : '',
             selectedType : ""}
             ],
         colorSelectedOption: '',
@@ -96,6 +96,7 @@ class BookingPage extends Component{
                                                     this.state.serviceInfo[sI].rooms = curService.rooms;
                                                     this.state.serviceInfo[sI].start = curService.start;
                                                     this.state.serviceInfo[sI].breakfast = curService.breakfast;
+                                                    this.state.serviceInfo[sI].hotelName = curService.hotelName;
                                                     let b;
                                                     if(this.state.serviceInfo[sI].breakfast === true){
                                                         b = {value: 1, label: 'مع افطار'};
@@ -612,7 +613,7 @@ class BookingPage extends Component{
 
     addService = () => {
         this.setState({serviceInfo: this.state.serviceInfo.concat([{sDate: new moment(), eDate: new moment(),serviceStartDate : "", serviceEndDate:"",
-                city: '', comments: '', start: '', rooms: '' , breakfast:'' , car:'' , selectedService : '', selectedServiceCode:'',
+                city: '', comments: '', start: '', rooms: '' , breakfast:'' , car:'' , selectedService : '', selectedServiceCode:'', hotelName : '',
                 showCarType:false,showHotel:false}])});
     }
 
@@ -681,6 +682,19 @@ class BookingPage extends Component{
             }
             else{
                 return {...service, car: event.currentTarget.value};
+            }
+
+        });
+        this.setState({serviceInfo: newServices});
+    }
+
+    serviceInfoHotelNameHandler = (idx) => (event) => {
+        const newServices = this.state.serviceInfo.map((service, sidx) => {
+            if (idx !== sidx){
+                return service;
+            }
+            else{
+                return {...service, hotelName: event.currentTarget.value};
             }
 
         });
@@ -845,15 +859,15 @@ class BookingPage extends Component{
                             {service.showHotel === false ? ""
                                 :
                                 <div className="col-md-12">
-                                    <div className="form-group col-md-4">
+                                    <div className="form-group col-md-3">
                                         <label>عدد النجوم</label>
                                         <input className="form-control" type="text" value={service.start} onChange={this.serviceInfoStarsHandler(idx)}/>
                                     </div>
-                                    <div className="form-group col-md-4">
+                                    <div className="form-group col-md-3">
                                         <label>عدد الغرف</label>
                                         <input className="form-control" type="text" value={service.rooms} onChange={this.serviceInfoRoomsHandler(idx)}/>
                                     </div>
-                                    <div className="form-group col-md-4">
+                                    <div className="form-group col-md-3">
                                         <label>حالة الفطور</label>
                                         <Select
                                             name="form-field-name"
@@ -865,7 +879,10 @@ class BookingPage extends Component{
                                             ]}
                                         />
                                     </div>
-
+                                    <div className="form-group col-md-3">
+                                        <label>اسم الفندق</label>
+                                        <input className="form-control" type="text" value={service.hotelName} onChange={this.serviceInfoHotelNameHandler(idx)}/>
+                                    </div>
                                 </div>
                             }
                             <div className="col-md-12">
